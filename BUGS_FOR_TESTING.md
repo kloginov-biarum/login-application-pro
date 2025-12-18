@@ -8,6 +8,34 @@ This document describes intentional bugs introduced in the Sales Dashboard (`sal
 
 ## List of Intentional Bugs
 
+### Bug #1: 500 Internal Server Error (CRITICAL)
+**Location**: Sales Dashboard - Entire page
+
+**Description**: 
+When a user with role `salesperson` or username `sales1` logs in and tries to access the Sales Dashboard, the page displays a 500 Internal Server Error instead of the dashboard content.
+
+**Expected Behavior**:
+- User should see the Sales Dashboard with sales data, progress bars, and statistics
+
+**Actual Behavior**:
+- User sees a 500 Internal Server Error page with message "Database connection failed. Unable to fetch sales data."
+- The error page shows:
+  - Large "500" text
+  - "Internal Server Error" heading
+  - Error message about database connection failure
+  - Button to return to login
+
+**How to Find**:
+1. Login as `sales1` / `sales123`
+2. After successful login, you will be redirected to Sales Dashboard
+3. Instead of seeing the dashboard, you will see the 500 error page
+
+**Severity**: **CRITICAL** - Complete page failure
+
+---
+
+### Bug #2: Incorrect Progress Percentage Calculation
+
 ### Bug #1: Incorrect Progress Percentage Calculation
 **Location**: Sales Dashboard - Progress Bar
 

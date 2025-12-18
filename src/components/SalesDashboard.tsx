@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser, logout } from '../auth';
 import { mockSalesPlan } from '../data/mockData';
+import Error500 from './Error500';
 
 const SalesDashboard = () => {
   const user = getCurrentUser();
@@ -14,6 +15,11 @@ const SalesDashboard = () => {
   if (!user) {
     navigate('/');
     return null;
+  }
+
+  // INTENTIONAL BUG FOR TESTING: Show 500 error page for salesperson role
+  if (user.role === 'salesperson' || user.username === 'sales1') {
+    return <Error500 />;
   }
 
   return (
