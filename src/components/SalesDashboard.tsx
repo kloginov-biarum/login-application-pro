@@ -55,15 +55,18 @@ const SalesDashboard = () => {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm font-medium text-gray-700">Progress</span>
-                <span className="text-sm font-bold text-gray-900">{mockSalesPlan.percentage}%</span>
+                {/* BUG: Incorrect percentage calculation - using target/current instead of current/target */}
+                <span className="text-sm font-bold text-gray-900">
+                  {Math.round((mockSalesPlan.target / mockSalesPlan.current) * 100)}%
+                </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
                 <div
                   className="bg-gradient-to-r from-green-500 to-green-600 h-6 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
-                  style={{ width: `${mockSalesPlan.percentage}%` }}
+                  style={{ width: `${Math.round((mockSalesPlan.target / mockSalesPlan.current) * 100)}%` }}
                 >
                   <span className="text-xs font-semibold text-white">
-                    {mockSalesPlan.percentage}%
+                    {Math.round((mockSalesPlan.target / mockSalesPlan.current) * 100)}%
                   </span>
                 </div>
               </div>
@@ -87,8 +90,9 @@ const SalesDashboard = () => {
 
               <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border-l-4 border-green-500">
                 <p className="text-green-600 text-sm font-medium mb-2">Remaining</p>
+                {/* BUG: Incorrect calculation - subtracting target from current instead of current from target */}
                 <p className="text-3xl font-bold text-green-900">
-                  ${(mockSalesPlan.target - mockSalesPlan.current).toLocaleString()}
+                  ${(mockSalesPlan.current - mockSalesPlan.target).toLocaleString()}
                 </p>
               </div>
             </div>
@@ -99,6 +103,7 @@ const SalesDashboard = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <p className="text-xs text-gray-600">Memberships Sold</p>
+                  {/* BUG: Wrong count - should match actual sales data */}
                   <p className="text-lg font-bold text-gray-800">23</p>
                 </div>
                 <div>
@@ -107,11 +112,15 @@ const SalesDashboard = () => {
                 </div>
                 <div>
                   <p className="text-xs text-gray-600">Group Classes</p>
+                  {/* BUG: Sum doesn't match - 23 + 15 + 8 = 46, but should be consistent with total sales */}
                   <p className="text-lg font-bold text-gray-800">8</p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600">Average Ticket</p>
-                  <p className="text-lg font-bold text-gray-800">$1,413</p>
+                  {/* BUG: Incorrect average ticket calculation - dividing by Personal Training count (15) instead of Memberships (23) */}
+                  <p className="text-lg font-bold text-gray-800">
+                    ${Math.round(mockSalesPlan.current / 15).toLocaleString()}
+                  </p>
                 </div>
               </div>
             </div>
