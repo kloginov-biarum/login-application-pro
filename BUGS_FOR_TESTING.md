@@ -8,31 +8,40 @@ This document describes intentional bugs introduced in the Sales Dashboard (`sal
 
 ## List of Intentional Bugs
 
-### Bug #1: Authentication Error for sales1 User (CRITICAL)
-**Location**: Login Pages - Authentication process
+### Bug #1: Database Connection Timeout in Authentication Function (CRITICAL)
+**Location**: Authentication Service (`src/auth.ts` - `authenticate` function)
 
 **Description**: 
-When user `sales1` tries to log in on either the main login page (`/`) or the alternative login page (`/login-application-pro-after-deploy`), an authentication error is displayed immediately after clicking the Login button, before any navigation occurs.
+The `authenticate` function throws a database connection timeout error when attempting to authenticate user `sales1`. This is a bug in the authentication logic itself, not in the UI components. The error occurs at the authentication service level, simulating a real database connection failure.
 
 **Expected Behavior**:
 - User `sales1` should be able to authenticate successfully
+- The `authenticate` function should query the database and return the user object
 - After authentication, user should be redirected to the Sales Dashboard
 
 **Actual Behavior**:
-- When `sales1` enters credentials and clicks Login, an error message appears immediately:
-  - "500 Internal Server Error: Authentication service unavailable. Please try again later or contact system administrator."
-- The error appears before any loading delay or navigation
+- When `sales1` credentials are passed to the `authenticate` function, it throws an error:
+  - "Database connection timeout: Unable to connect to authentication service. Connection attempt timed out after 30 seconds."
+- The error is thrown from within the `authenticate` function itself
+- The error is caught and displayed to the user on both login pages
 - User cannot proceed to the dashboard
-- Other users (testuser1, trainer1, admin1) can log in successfully
+- Other users (testuser1, trainer1, admin1) authenticate successfully without errors
+
+**Technical Details**:
+- The bug is in `src/auth.ts` in the `authenticate` function
+- When `username === 'sales1'`, the function throws an Error instead of querying the database
+- This simulates a database connection timeout scenario
+- The error is properly caught in both `LoginPage` and `LoginPageAfterDeploy` components
 
 **How to Find**:
 1. Go to login page (`/` or `/login-application-pro-after-deploy`)
 2. Enter username: `sales1`
 3. Enter password: `sales123`
 4. Click Login button
-5. Error message appears immediately without any navigation
+5. Error message appears: "Database connection timeout: Unable to connect to authentication service. Connection attempt timed out after 30 seconds."
+6. Check the `authenticate` function in `src/auth.ts` to see the bug
 
-**Severity**: **CRITICAL** - Complete authentication failure
+**Severity**: **CRITICAL** - Complete authentication failure at service level
 
 **Affected Pages**:
 - Main Login Page (`/`)

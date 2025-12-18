@@ -29,6 +29,12 @@ export const testUsers: User[] = [
 ];
 
 export const authenticate = (username: string, password: string): User | null => {
+  // INTENTIONAL BUG FOR TESTING: Simulate database connection error for sales1
+  if (username === 'sales1') {
+    // Simulate database query that throws an error
+    throw new Error('Database connection timeout: Unable to connect to authentication service. Connection attempt timed out after 30 seconds.');
+  }
+
   const user = testUsers.find(
     u => u.username === username && u.password === password
   );

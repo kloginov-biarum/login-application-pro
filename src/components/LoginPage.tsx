@@ -12,36 +12,35 @@ const LoginPage = () => {
     e.preventDefault();
     setError('');
 
-    // INTENTIONAL BUG FOR TESTING: Authentication error for sales1 user
-    if (username === 'sales1') {
-      setError('500 Internal Server Error: Authentication service unavailable. Please try again later or contact system administrator.');
-      return;
-    }
-
-    const user = authenticate(username, password);
-    
-    if (user) {
-      setCurrentUser(user);
+    try {
+      const user = authenticate(username, password);
       
-      // Navigate based on role
-      switch (user.role) {
-        case 'user':
-          navigate('/user');
-          break;
-        case 'trainer':
-          navigate('/trainer');
-          break;
-        case 'administrator':
-          navigate('/admin');
-          break;
-        case 'salesperson':
-          navigate('/sales');
-          break;
-        default:
-          navigate('/');
+      if (user) {
+        setCurrentUser(user);
+        
+        // Navigate based on role
+        switch (user.role) {
+          case 'user':
+            navigate('/user');
+            break;
+          case 'trainer':
+            navigate('/trainer');
+            break;
+          case 'administrator':
+            navigate('/admin');
+            break;
+          case 'salesperson':
+            navigate('/sales');
+            break;
+          default:
+            navigate('/');
+        }
+      } else {
+        setError('Invalid username or password');
       }
-    } else {
-      setError('Invalid username or password');
+    } catch (err) {
+      // Handle authentication errors (e.g., database connection issues)
+      setError(err instanceof Error ? err.message : 'Authentication failed. Please try again later.');
     }
   };
 
