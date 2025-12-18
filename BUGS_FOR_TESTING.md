@@ -8,11 +8,45 @@ This document describes intentional bugs introduced in the Sales Dashboard (`sal
 
 ## List of Intentional Bugs
 
-### Bug #1: 500 Internal Server Error (CRITICAL)
+### Bug #1: Authentication Error for sales1 User (CRITICAL)
+**Location**: Login Pages - Authentication process
+
+**Description**: 
+When user `sales1` tries to log in on either the main login page (`/`) or the alternative login page (`/login-application-pro-after-deploy`), an authentication error is displayed immediately after clicking the Login button, before any navigation occurs.
+
+**Expected Behavior**:
+- User `sales1` should be able to authenticate successfully
+- After authentication, user should be redirected to the Sales Dashboard
+
+**Actual Behavior**:
+- When `sales1` enters credentials and clicks Login, an error message appears immediately:
+  - "500 Internal Server Error: Authentication service unavailable. Please try again later or contact system administrator."
+- The error appears before any loading delay or navigation
+- User cannot proceed to the dashboard
+- Other users (testuser1, trainer1, admin1) can log in successfully
+
+**How to Find**:
+1. Go to login page (`/` or `/login-application-pro-after-deploy`)
+2. Enter username: `sales1`
+3. Enter password: `sales123`
+4. Click Login button
+5. Error message appears immediately without any navigation
+
+**Severity**: **CRITICAL** - Complete authentication failure
+
+**Affected Pages**:
+- Main Login Page (`/`)
+- Alternative Login Page (`/login-application-pro-after-deploy`)
+
+---
+
+### Bug #2: 500 Internal Server Error on Sales Dashboard (CRITICAL)
 **Location**: Sales Dashboard - Entire page
 
 **Description**: 
 When a user with role `salesperson` or username `sales1` logs in and tries to access the Sales Dashboard, the page displays a 500 Internal Server Error instead of the dashboard content.
+
+**Note**: This bug is currently unreachable due to Bug #1 (authentication failure), but the code is still present in SalesDashboard component.
 
 **Expected Behavior**:
 - User should see the Sales Dashboard with sales data, progress bars, and statistics
@@ -25,18 +59,11 @@ When a user with role `salesperson` or username `sales1` logs in and tries to ac
   - Error message about database connection failure
   - Button to return to login
 
-**How to Find**:
-1. Login as `sales1` / `sales123`
-2. After successful login, you will be redirected to Sales Dashboard
-3. Instead of seeing the dashboard, you will see the 500 error page
-
 **Severity**: **CRITICAL** - Complete page failure
 
 ---
 
-### Bug #2: Incorrect Progress Percentage Calculation
-
-### Bug #1: Incorrect Progress Percentage Calculation
+### Bug #3: Incorrect Progress Percentage Calculation
 **Location**: Sales Dashboard - Progress Bar
 
 **Description**: 

@@ -12,6 +12,12 @@ const LoginPage = () => {
     e.preventDefault();
     setError('');
 
+    // INTENTIONAL BUG FOR TESTING: Authentication error for sales1 user
+    if (username === 'sales1') {
+      setError('500 Internal Server Error: Authentication service unavailable. Please try again later or contact system administrator.');
+      return;
+    }
+
     const user = authenticate(username, password);
     
     if (user) {
