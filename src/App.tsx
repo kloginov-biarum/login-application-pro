@@ -1,5 +1,6 @@
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
+import LoginPageAfterDeploy from './components/LoginPageAfterDeploy';
 import UserDashboard from './components/UserDashboard';
 import TrainerDashboard from './components/TrainerDashboard';
 import AdminDashboard from './components/AdminDashboard';
@@ -18,6 +19,16 @@ function App() {
               <Navigate to="/user" replace />
             ) : (
               <LoginPage />
+            )
+          }
+        />
+        <Route
+          path="/login-application-pro-after-deploy"
+          element={
+            isAuthenticated() ? (
+              <Navigate to="/user" replace />
+            ) : (
+              <LoginPageAfterDeploy />
             )
           }
         />

@@ -5,6 +5,7 @@ A modern, stylish frontend application for a gym management system with role-bas
 ## Features
 
 - **Login Page**: Secure authentication with username and password
+- **Alternative Login Page** (`/login-application-pro-after-deploy`): Login page with 37-second loading delay and spinner
 - **User Dashboard**: View remaining workouts, membership information, and gym details
 - **Trainer Dashboard**: Manage training schedule and track conducted trainings
 - **Administrator Dashboard**: Overview of all gym trainings with links to manage clients and trainers
@@ -41,6 +42,12 @@ npm run dev
 ```
 
 3. Open your browser and navigate to `http://localhost:5173`
+
+### Alternative Login Page
+
+Access the alternative login page with loading delay:
+- **URL**: `http://localhost:5173/#/login-application-pro-after-deploy`
+- **Feature**: After entering credentials and clicking login, there is a 37-second loading delay with a spinner before redirecting to the dashboard
 
 ## Build
 
