@@ -46,8 +46,15 @@ npm run dev
 ### Alternative Login Page
 
 Access the alternative login page with loading delay:
+
+**Local Development:**
 - **URL**: `http://localhost:5173/#/login-application-pro-after-deploy`
-- **Feature**: After entering credentials and clicking login, there is a 37-second loading delay with a spinner before redirecting to the dashboard
+
+**GitHub Pages:**
+- **URL**: `https://kloginov-biarum.github.io/login-application-pro/login-application-pro-after-deploy`
+- This will automatically redirect to the hash route: `/#/login-application-pro-after-deploy`
+
+**Feature**: After entering credentials and clicking login, there is a 37-second loading delay with a spinner before redirecting to the dashboard
 
 ## Build
 
