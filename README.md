@@ -43,18 +43,19 @@ npm run dev
 
 3. Open your browser and navigate to `http://localhost:5173`
 
-### Alternative Login Page
+### Alternative Login Page (Separate Repository)
 
-Access the alternative login page with loading delay:
+There is a separate GitHub Pages site with an alternative login page that includes a 37-second loading delay:
+
+**GitHub Pages:**
+- **URL**: `https://kloginov-biarum.github.io/login-application-pro-after-deploy/`
+- **Feature**: After entering credentials and clicking login, there is a 37-second loading delay with a spinner before redirecting to the dashboard
+
+**Setup Instructions:**
+See `QUICK_SETUP_ALTERNATIVE.md` for instructions on setting up the alternative repository.
 
 **Local Development:**
 - **URL**: `http://localhost:5173/#/login-application-pro-after-deploy`
-
-**GitHub Pages:**
-- **URL**: `https://kloginov-biarum.github.io/login-application-pro/login-application-pro-after-deploy`
-- This will automatically redirect to the hash route: `/#/login-application-pro-after-deploy`
-
-**Feature**: After entering credentials and clicking login, there is a 37-second loading delay with a spinner before redirecting to the dashboard
 
 ## Build
 
