@@ -1,4 +1,4 @@
-import { User, UserRole } from './types';
+import { User } from './types';
 
 // Test users for each role
 export const testUsers: User[] = [
